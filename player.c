@@ -1,6 +1,7 @@
 typedef struct
 {
     int x, y;
+    char direction;
 
 } player;
 
@@ -17,4 +18,28 @@ void drawPlayer(player *pl, int width, int heigth, char field[heigth][width])
 {
     // printf("%d, %d", (*pl).x, (*pl).y);
     field[(*pl).y][(*pl).x] = '@';
+}
+
+void movePlayer(player *pl, int width, int heigth, char field[heigth][width])
+{
+    switch ((*pl).direction)
+    {
+    case 'r':
+        changePosition(pl, (*pl).x + 1, (*pl).y, width, heigth, field);
+        break;
+    case 'l':
+
+        break;
+
+    case 'u':
+
+        break;
+
+    case 'd':
+
+        break;
+
+    default:
+        break;
+    }
 }

@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <termios.h>
 #include <unistd.h>
+#include <time.h>
+#include <pthread.h>
 #include "player.c"
 
 #define width 40
@@ -13,9 +16,8 @@ void disable_canonical_mode();
 
 int main()
 {
-
     char field[heigth][width] = {};
-    player pl1 = {(int)round(width / 2), (int)round(heigth / 2)};
+    player pl1 = {(int)round(width / 2), (int)round(heigth / 2), 'r'};
     char pressedKey;
     char esc = 1;
 
@@ -30,6 +32,10 @@ int main()
         initBoard(field, '.', '#');
         drawPlayer(&pl1, width, heigth, field);
         showBoard(field);
+
+        movePlayer(&pl1, width, heigth, field);
+
+        usleep(500000);
 
         pressedKey = getchar();
 
@@ -48,7 +54,7 @@ int main()
             changePosition(&pl1, pl1.x, pl1.y + 1, width, heigth, field);
             break;
         case 'd':
-            changePosition(&pl1, pl1.x + 1, pl1.y, width, heigth, field);
+            pl1.direction = 'r';
             break;
 
         default:
