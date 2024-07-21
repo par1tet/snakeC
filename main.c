@@ -1,23 +1,61 @@
 #include <stdio.h>
 #include <math.h>
+#include <termios.h>
+#include <unistd.h>
 #include "player.c"
 
 #define width 40
-#define heigth 10
+#define heigth 20
 
 void showBoard(char field[heigth][width]);
 void initBoard(char field[heigth][width], char, char);
+void disable_canonical_mode();
 
 int main()
 {
-    system("clear");
 
     char field[heigth][width] = {};
     player pl1 = {(int)round(width / 2), (int)round(heigth / 2)};
+    char pressedKey;
+    char esc = 1;
 
-    initBoard(field, '.', '#');
-    drawPlayer(&pl1, width, heigth, field);
-    showBoard(field);
+    disable_canonical_mode();
+
+    // main loop
+
+    do
+    {
+        system("clear");
+
+        initBoard(field, '.', '#');
+        drawPlayer(&pl1, width, heigth, field);
+        showBoard(field);
+
+        pressedKey = getchar();
+
+        switch (pressedKey)
+        {
+        case 'q':
+            esc = 0;
+            break;
+        case 'w':
+            changePosition(&pl1, pl1.x, pl1.y - 1, width, heigth, field);
+            break;
+        case 'a':
+            changePosition(&pl1, pl1.x - 1, pl1.y, width, heigth, field);
+            break;
+        case 's':
+            changePosition(&pl1, pl1.x, pl1.y + 1, width, heigth, field);
+            break;
+        case 'd':
+            changePosition(&pl1, pl1.x + 1, pl1.y, width, heigth, field);
+            break;
+
+        default:
+            continue;
+            break;
+        }
+    } while (esc);
 
     return 0;
 }
@@ -56,4 +94,13 @@ void initBoard(char field[heigth][width], char air, char blocks)
             }
         }
     }
+}
+
+// Функция для отключения режима канонического ввода
+void disable_canonical_mode()
+{
+    struct termios term;
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~(ICANON | ECHO); // Отключаем канонический режим и отображение вводимых символов
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
