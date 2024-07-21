@@ -23,7 +23,9 @@ int main()
 
     char field[HEIGTH][WIDTH] = {};
     board mainBoard = initBoard(HEIGTH, WIDTH, '#', '.', field);
-    player pl1 = {(int)round(WIDTH / 2), (int)round(HEIGTH / 2), 'r', '@'};
+    part head = {(int)round(WIDTH / 2), (int)round(HEIGTH / 2), 'r', '@'};
+    part parts[] = {head};
+    player pl1 = {1, parts};
     char esc = 1;
 
     disable_canonical_mode();
@@ -35,7 +37,7 @@ int main()
 
     do
     {
-        system("clear");
+        // system("clear");
         movePlayer(&pl1, &mainBoard);
         drawPlayer(&pl1, &mainBoard);
         showBoard(&mainBoard);
@@ -47,16 +49,16 @@ int main()
             esc = 0;
             break;
         case 'w':
-            pl1.direction = 'u';
+            pl1.parts[0].direction = 'u';
             break;
         case 'a':
-            pl1.direction = 'l';
+            pl1.parts[0].direction = 'l';
             break;
         case 's':
-            pl1.direction = 'd';
+            pl1.parts[0].direction = 'd';
             break;
         case 'd':
-            pl1.direction = 'r';
+            pl1.parts[0].direction = 'r';
             break;
 
         default:

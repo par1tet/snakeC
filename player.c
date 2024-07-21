@@ -3,14 +3,19 @@
 typedef struct
 {
     int x, y;
-    char direction;
-    char playerIcon;
+    char direction, playerIcon;
+} part;
 
+typedef struct
+{
+    int length;
+
+    part *parts;
 } player;
 
-int changePosition(player *pl, int newX, int newY, board *mainBoard)
+int changePosition(part *pl, int newX, int newY, board *mainBoard)
 {
-    if (mainBoard->field[newY][newX] == '#')
+    if (mainBoard->field[newY][newX] != mainBoard->air)
         return 0;
 
     mainBoard->field[pl->y][pl->x] = mainBoard->air;
@@ -18,31 +23,39 @@ int changePosition(player *pl, int newX, int newY, board *mainBoard)
     pl->y = newY;
 }
 
-void drawPlayer(player *pl, board *mainBoard)
+void drawPlayer(player *pr, board *mainBoard)
 {
     // printf("%d, %d", (*pl).x, (*pl).y);
-    (*mainBoard).field[(*pl).y][(*pl).x] = (*pl).playerIcon;
+    for (int i = 0; i != pr->length; i++)
+    {
+        part currentPart = pr->parts[i];
+        (*mainBoard).field[currentPart.y][currentPart.x] = currentPart.playerIcon;
+    }
 }
 
 void movePlayer(player *pl, board *mainBoard)
 {
-    switch ((*pl).direction)
+    for (int i = 0; i != pl->length; i++)
     {
-    case 'r':
-        changePosition(pl, (*pl).x + 1, (*pl).y, mainBoard);
-        break;
-    case 'l':
-        changePosition(pl, (*pl).x - 1, (*pl).y, mainBoard);
-        break;
-    case 'u':
-        changePosition(pl, (*pl).x, (*pl).y - 1, mainBoard);
-        break;
+        part* currentPart = &(pl->parts[i]);
+        switch (currentPart->direction)
+        {
+        case 'r':
+            printf("%c", currentPart->direction);
+            changePosition(currentPart, currentPart->x + 1, currentPart->y, mainBoard);
+            break;
+        case 'l':
+            changePosition(currentPart, currentPart->x - 1, currentPart->y, mainBoard);
+            break;
+        case 'u':
+            changePosition(currentPart, currentPart->x, currentPart->y - 1, mainBoard);
+            break;
+        case 'd':
+            changePosition(currentPart, currentPart->x, currentPart->y + 1, mainBoard);
+            break;
 
-    case 'd':
-        changePosition(pl, (*pl).x, (*pl).y + 1, mainBoard);
-        break;
-
-    default:
-        break;
+        default:
+            break;
+        }
     }
 }
