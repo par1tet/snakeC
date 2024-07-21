@@ -1,5 +1,8 @@
 #include <stdio.h>
-#define width 20
+#include <math.h>
+#include "player.c"
+
+#define width 40
 #define heigth 10
 
 void showBoard(char field[heigth][width]);
@@ -10,8 +13,10 @@ int main()
     system("clear");
 
     char field[heigth][width] = {};
+    player pl1 = {(int)round(width / 2), (int)round(heigth / 2)};
 
     initBoard(field, '.', '#');
+    drawPlayer(&pl1, width, heigth, field);
     showBoard(field);
 
     return 0;
