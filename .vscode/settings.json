@@ -5,6 +5,7 @@
         "stdio.h": "c",
         "pthread.h": "c",
         "colors.h": "c",
-        "structures.h": "c"
+        "structures.h": "c",
+        "stdlib.h": "c"
     }
 }

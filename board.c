@@ -1,27 +1,5 @@
 #include "colors.h"
-
-#define HEIGTH 20
-#define WIDTH 40
-
-typedef struct
-{
-    int x, y;
-    char direction, playerIcon;
-} part;
-
-typedef struct
-{
-    int length;
-
-    part *parts;
-} player;
-
-typedef struct
-{
-    int heigth, width;
-    char block, air;
-    char field[HEIGTH][WIDTH];
-} board;
+#include "structures.c"
 
 #define WIDTH 40
 #define HEIGTH 20
@@ -74,11 +52,15 @@ void showBoard(player *pl, board *mainBoard)
             }
             else if (mainBoard->field[i][j] == pl->parts[0].playerIcon)
             {
-                printf(RED);
+                printf(YELLOW);
                 printf("%c", mainBoard->field[i][j]);
                 printf(RESET);
             }
         }
         printf("\n");
     }
+
+    apple newApple = createApple();
+
+    printf("%d, %d", newApple.x, newApple.y);
 }
