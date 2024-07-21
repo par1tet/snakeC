@@ -1,31 +1,35 @@
+#include "board.c"
+
 typedef struct
 {
     int x, y;
     char direction;
+    char playerIcon;
 
 } player;
 
-int changePosition(player *pl, int newX, int newY, int width, int heigth, char field[heigth][width])
+int changePosition(player *pl, int newX, int newY, board *mainBoard)
 {
-    if (field[newY][newX] == '#')
+    if (mainBoard->field[newY][newX] == '#')
         return 0;
 
-    (*pl).x = newX;
-    (*pl).y = newY;
+    mainBoard->field[pl->y][pl->x] = mainBoard->air;
+    pl->x = newX;
+    pl->y = newY;
 }
 
-void drawPlayer(player *pl, int width, int heigth, char field[heigth][width])
+void drawPlayer(player *pl, board *mainBoard)
 {
     // printf("%d, %d", (*pl).x, (*pl).y);
-    field[(*pl).y][(*pl).x] = '@';
+    (*mainBoard).field[(*pl).y][(*pl).x] = (*pl).playerIcon;
 }
 
-void movePlayer(player *pl, int width, int heigth, char field[heigth][width])
+void movePlayer(player *pl, board *mainBoard)
 {
     switch ((*pl).direction)
     {
     case 'r':
-        changePosition(pl, (*pl).x + 1, (*pl).y, width, heigth, field);
+        changePosition(pl, (*pl).x + 1, (*pl).y, mainBoard);
         break;
     case 'l':
 
