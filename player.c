@@ -1,25 +1,4 @@
-#define HEIGTH 40
-#define WIDTH 20
-
-typedef struct
-{
-    int x, y;
-    char direction, playerIcon;
-} part;
-
-typedef struct
-{
-    int length;
-
-    part *parts;
-} player;
-
-typedef struct
-{
-    int heigth, width;
-    char block, air;
-    char field[HEIGTH][WIDTH];
-} board;
+#include "board.c"
 
 int changePosition(part *pl, int newX, int newY, board *mainBoard)
 {

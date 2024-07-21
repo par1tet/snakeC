@@ -7,7 +7,6 @@
 #include <pthread.h>
 #include "colors.h"
 #include "player.c"
-#include "board.c"
 
 char pressedKey;
 void disable_canonical_mode();

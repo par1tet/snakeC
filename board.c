@@ -1,7 +1,7 @@
 #include "colors.h"
 
-#define HEIGTH 40
-#define WIDTH 20
+#define HEIGTH 20
+#define WIDTH 40
 
 typedef struct
 {
@@ -58,13 +58,25 @@ void showBoard(player *pl, board *mainBoard)
 {
     for (int i = 0; i != mainBoard->heigth; i++)
     {
-        for (int j = 0; j != mainBoard->width; j++){
-            if (mainBoard->field[i][j] = mainBoard->air){
+        for (int j = 0; j != mainBoard->width; j++)
+        {
+            if (mainBoard->field[i][j] == mainBoard->air)
+            {
+                printf(MAGENTA);
                 printf("%c", mainBoard->field[i][j]);
-            }else if(mainBoard->field[i][j] = mainBoard->block){
+                printf(RESET);
+            }
+            else if (mainBoard->field[i][j] == mainBoard->block)
+            {
+                printf(YELLOW);
                 printf("%c", mainBoard->field[i][j]);
-            }else if(mainBoard->field[i][j] = pl->parts[0].playerIcon){
+                printf(RESET);
+            }
+            else if (mainBoard->field[i][j] == pl->parts[0].playerIcon)
+            {
+                printf(RED);
                 printf("%c", mainBoard->field[i][j]);
+                printf(RESET);
             }
         }
         printf("\n");
