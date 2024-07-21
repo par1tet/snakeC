@@ -43,7 +43,9 @@ int main()
 
         movePlayer(&pl1, &mainBoard);
         drawPlayer(&pl1, &mainBoard);
-        showApple(&newApple, &mainBoard);
+        if(hasApple(&newApple, &mainBoard)){
+            showApple(&newApple, &mainBoard);
+        }
         showBoard(&pl1, &mainBoard, &newApple);
 
         usleep(200000);
