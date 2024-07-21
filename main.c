@@ -38,10 +38,13 @@ int main()
 
     do
     {
-        // system("clear");
+        system("clear");
+        apple newApple = createApple('*');
+
         movePlayer(&pl1, &mainBoard);
         drawPlayer(&pl1, &mainBoard);
-        showBoard(&pl1, &mainBoard);
+        showApple(&newApple, &mainBoard);
+        showBoard(&pl1, &mainBoard, &newApple);
 
         usleep(200000);
         switch (pressedKey)

@@ -1,12 +1,10 @@
-#include <player.c>
-#include <time.h>
-#include <stdlib.h>
+#include "player.c"
 
-apple createApple()
+apple createApple(char icon)
 {
     srand(time(NULL));
 
-    apple newApple = {rand()%WIDTH-1,rand()%HEIGTH-1};
+    apple newApple = {rand() % WIDTH, rand() % HEIGTH, icon};
 
     return newApple;
 }

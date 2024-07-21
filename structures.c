@@ -24,4 +24,5 @@ typedef struct
 typedef struct
 {
     int x, y;
+    char icon;
 } apple;

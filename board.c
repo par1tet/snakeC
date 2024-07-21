@@ -1,10 +1,12 @@
+#include <time.h>
+#include <stdlib.h>
 #include "colors.h"
 #include "structures.c"
 
 #define WIDTH 40
 #define HEIGTH 20
 
-board initBoard(int heigth, int width, char block, char air, char field[heigth][width])
+board initBoard(int heigth, int width, char block, char air, char field[HEIGTH][WIDTH])
 {
     board newBoard = {heigth, width, block, air, field};
     for (int i = 0; i != heigth; i++)
@@ -32,7 +34,7 @@ board initBoard(int heigth, int width, char block, char air, char field[heigth][
     return newBoard;
 }
 
-void showBoard(player *pl, board *mainBoard)
+void showBoard(player *pl, board *mainBoard, apple* newApple)
 {
     for (int i = 0; i != mainBoard->heigth; i++)
     {
@@ -52,15 +54,21 @@ void showBoard(player *pl, board *mainBoard)
             }
             else if (mainBoard->field[i][j] == pl->parts[0].playerIcon)
             {
-                printf(YELLOW);
+                printf(RED);
+                printf("%c", mainBoard->field[i][j]);
+                printf(RESET);
+            }
+            else if (mainBoard->field[i][j] == newApple->icon)
+            {
+                printf(GREEN);
                 printf("%c", mainBoard->field[i][j]);
                 printf(RESET);
             }
         }
         printf("\n");
     }
+}
 
-    apple newApple = createApple();
-
-    printf("%d, %d", newApple.x, newApple.y);
+void showApple(apple* newApple, board *mainBoard){
+    mainBoard->field[newApple->y][newApple->x] = newApple->icon;
 }
