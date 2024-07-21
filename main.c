@@ -7,31 +7,41 @@
 #include <pthread.h>
 #include "player.c"
 
+char pressedKey;
 void disable_canonical_mode();
+
+void *control_thread_func()
+{
+    while (1)
+    {
+        pressedKey = getchar();
+    }
+}
 
 int main()
 {
+
     char field[HEIGTH][WIDTH] = {};
     board mainBoard = initBoard(HEIGTH, WIDTH, '#', '.', field);
     player pl1 = {(int)round(WIDTH / 2), (int)round(HEIGTH / 2), 'r', '@'};
-    char pressedKey;
     char esc = 1;
 
     disable_canonical_mode();
+
+    pthread_t control_thread;
+    pthread_create(&control_thread, NULL, control_thread_func, NULL);
 
     // main loop
 
     do
     {
         system("clear");
-
         drawPlayer(&pl1, &mainBoard);
         showBoard(&mainBoard);
 
         // movePlayer(&pl1, &mainBoard);
 
-        pressedKey = getchar();
-
+        usleep(500000);
         switch (pressedKey)
         {
         case 'q':
