@@ -1,4 +1,5 @@
-#include "board.c"
+#define HEIGTH 40
+#define WIDTH 20
 
 typedef struct
 {
@@ -12,6 +13,13 @@ typedef struct
 
     part *parts;
 } player;
+
+typedef struct
+{
+    int heigth, width;
+    char block, air;
+    char field[HEIGTH][WIDTH];
+} board;
 
 int changePosition(part *pl, int newX, int newY, board *mainBoard)
 {
@@ -37,11 +45,10 @@ void movePlayer(player *pl, board *mainBoard)
 {
     for (int i = 0; i != pl->length; i++)
     {
-        part* currentPart = &(pl->parts[i]);
+        part *currentPart = &(pl->parts[i]);
         switch (currentPart->direction)
         {
         case 'r':
-            printf("%c", currentPart->direction);
             changePosition(currentPart, currentPart->x + 1, currentPart->y, mainBoard);
             break;
         case 'l':

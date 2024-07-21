@@ -5,7 +5,9 @@
 #include <unistd.h>
 #include <time.h>
 #include <pthread.h>
+#include "colors.h"
 #include "player.c"
+#include "board.c"
 
 char pressedKey;
 void disable_canonical_mode();
@@ -37,10 +39,10 @@ int main()
 
     do
     {
-        // system("clear");
+        system("clear");
         movePlayer(&pl1, &mainBoard);
         drawPlayer(&pl1, &mainBoard);
-        showBoard(&mainBoard);
+        showBoard(&pl1,&mainBoard);
 
         usleep(200000);
         switch (pressedKey)

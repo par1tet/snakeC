@@ -1,5 +1,20 @@
-#define WIDTH 40
-#define HEIGTH 20
+#include "colors.h"
+
+#define HEIGTH 40
+#define WIDTH 20
+
+typedef struct
+{
+    int x, y;
+    char direction, playerIcon;
+} part;
+
+typedef struct
+{
+    int length;
+
+    part *parts;
+} player;
 
 typedef struct
 {
@@ -7,6 +22,9 @@ typedef struct
     char block, air;
     char field[HEIGTH][WIDTH];
 } board;
+
+#define WIDTH 40
+#define HEIGTH 20
 
 board initBoard(int heigth, int width, char block, char air, char field[heigth][width])
 {
@@ -36,12 +54,19 @@ board initBoard(int heigth, int width, char block, char air, char field[heigth][
     return newBoard;
 }
 
-void showBoard(board *mainBoard)
+void showBoard(player *pl, board *mainBoard)
 {
     for (int i = 0; i != mainBoard->heigth; i++)
     {
-        for (int j = 0; j != mainBoard->width; j++)
-            printf("%c", mainBoard->field[i][j]);
+        for (int j = 0; j != mainBoard->width; j++){
+            if (mainBoard->field[i][j] = mainBoard->air){
+                printf("%c", mainBoard->field[i][j]);
+            }else if(mainBoard->field[i][j] = mainBoard->block){
+                printf("%c", mainBoard->field[i][j]);
+            }else if(mainBoard->field[i][j] = pl->parts[0].playerIcon){
+                printf("%c", mainBoard->field[i][j]);
+            }
+        }
         printf("\n");
     }
 }
