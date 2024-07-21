@@ -3,12 +3,30 @@
 #include "colors.h"
 #include "structures.c"
 
-#define WIDTH 40
-#define HEIGTH 20
-
-board initBoard(int heigth, int width, char block, char air, char field[HEIGTH][WIDTH])
+board initBoard(int heigth, int width, char block, char air)
 {
-    board newBoard = {heigth, width, block, air, field};
+    board newBoard;
+    
+    newBoard.heigth = heigth;
+    newBoard.width = width;
+    newBoard.block = block;
+    newBoard.air = air;
+    
+    for (int i = 0; i < heigth; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (i == 0 || i == heigth - 1 || j == 0 || j == width - 1)
+            {
+                newBoard.field[i][j] = block;
+            }
+            else
+            {
+                newBoard.field[i][j] = air;
+            }
+        }
+    }
+
     for (int i = 0; i != heigth; i++)
     {
         if (i == 0 || i == heigth - 1)
@@ -34,7 +52,7 @@ board initBoard(int heigth, int width, char block, char air, char field[HEIGTH][
     return newBoard;
 }
 
-void showBoard(player *pl, board *mainBoard, apple* newApple)
+void showBoard(player *pl, board *mainBoard, apple *newApple)
 {
     for (int i = 0; i != mainBoard->heigth; i++)
     {
@@ -52,9 +70,15 @@ void showBoard(player *pl, board *mainBoard, apple* newApple)
                 printf("%c", mainBoard->field[i][j]);
                 printf(RESET);
             }
-            else if (mainBoard->field[i][j] == pl->parts[0].playerIcon)
+            else if (mainBoard->field[i][j] == pl->headIcon)
             {
                 printf(RED);
+                printf("%c", mainBoard->field[i][j]);
+                printf(RESET);
+            }
+            else if (mainBoard->field[i][j] == pl->partIcon)
+            {
+                printf(BLUE);
                 printf("%c", mainBoard->field[i][j]);
                 printf(RESET);
             }
@@ -69,6 +93,12 @@ void showBoard(player *pl, board *mainBoard, apple* newApple)
     }
 }
 
-void showApple(apple* newApple, board *mainBoard){
+int showApple(apple *newApple, board *mainBoard)
+{
+
+    if (mainBoard->field[newApple->y][newApple->x] == mainBoard->block)
+    {
+        return 0;
+    }
     mainBoard->field[newApple->y][newApple->x] = newApple->icon;
 }

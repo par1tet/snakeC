@@ -21,13 +21,13 @@ void *control_thread_func()
 
 int main()
 {
-
-    char field[HEIGTH][WIDTH] = {};
-    board mainBoard = initBoard(HEIGTH, WIDTH, '#', '.', field);
-    part head = {(int)round(WIDTH / 2), (int)round(HEIGTH / 2), 'r', '@'};
-    part parts[] = {head};
-    player pl1 = {1, parts};
     char esc = 1;
+    board mainBoard = initBoard(HEIGTH, WIDTH, '#', ' ');
+    part head = {(int)round(WIDTH / 2), (int)round(HEIGTH / 2), 'r'};
+    struct part_stc *parts = malloc(sizeof(head));
+    *parts = head;
+
+    player pl1 = {1, parts, '@', '+'};
 
     disable_canonical_mode();
 
@@ -43,7 +43,8 @@ int main()
 
         movePlayer(&pl1, &mainBoard, &newApple);
         drawPlayer(&pl1, &mainBoard);
-        if(hasApple(&newApple, &mainBoard)){
+        if (hasApple(&newApple, &mainBoard))
+        {
             showApple(&newApple, &mainBoard);
         }
         showBoard(&pl1, &mainBoard, &newApple);
@@ -72,6 +73,8 @@ int main()
             break;
         }
     } while (esc);
+
+    free(pl1.parts);
 
     return 0;
 }

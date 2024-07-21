@@ -1,23 +1,26 @@
-#define HEIGTH 20
-#define WIDTH 40
+#define HEIGTH 30
+#define WIDTH 50
 
-typedef struct
+typedef struct part_stc
 {
     int x, y;
-    char direction, playerIcon;
+    char direction;
 } part;
 
 typedef struct
 {
     int length;
-
     part *parts;
+    char headIcon, partIcon;
+
 } player;
 
-typedef struct
+typedef struct board_stc
 {
-    int heigth, width;
-    char block, air;
+    int heigth;
+    int width;
+    char block;
+    char air;
     char field[HEIGTH][WIDTH];
 } board;
 

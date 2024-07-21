@@ -6,6 +6,7 @@
         "pthread.h": "c",
         "colors.h": "c",
         "structures.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "string_view": "c"
     }
 }
