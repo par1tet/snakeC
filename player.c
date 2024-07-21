@@ -1,8 +1,11 @@
 #include "board.c"
 
-int changePosition(part *pl, int newX, int newY, board *mainBoard)
+int changePosition(part *pl, int newX, int newY, board *mainBoard, apple *newApple)
 {
-    if (mainBoard->field[newY][newX] != mainBoard->air)
+    if (mainBoard->field[newY][newX] == newApple->icon)
+    {
+    }
+    else if (mainBoard->field[newY][newX] != mainBoard->air)
         return 0;
 
     mainBoard->field[pl->y][pl->x] = mainBoard->air;
@@ -20,7 +23,7 @@ void drawPlayer(player *pr, board *mainBoard)
     }
 }
 
-void movePlayer(player *pl, board *mainBoard)
+void movePlayer(player *pl, board *mainBoard, apple *newApple)
 {
     for (int i = 0; i != pl->length; i++)
     {
@@ -28,16 +31,16 @@ void movePlayer(player *pl, board *mainBoard)
         switch (currentPart->direction)
         {
         case 'r':
-            changePosition(currentPart, currentPart->x + 1, currentPart->y, mainBoard);
+            changePosition(currentPart, currentPart->x + 1, currentPart->y, mainBoard, newApple);
             break;
         case 'l':
-            changePosition(currentPart, currentPart->x - 1, currentPart->y, mainBoard);
+            changePosition(currentPart, currentPart->x - 1, currentPart->y, mainBoard, newApple);
             break;
         case 'u':
-            changePosition(currentPart, currentPart->x, currentPart->y - 1, mainBoard);
+            changePosition(currentPart, currentPart->x, currentPart->y - 1, mainBoard, newApple);
             break;
         case 'd':
-            changePosition(currentPart, currentPart->x, currentPart->y + 1, mainBoard);
+            changePosition(currentPart, currentPart->x, currentPart->y + 1, mainBoard, newApple);
             break;
 
         default:

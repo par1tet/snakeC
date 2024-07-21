@@ -41,7 +41,7 @@ int main()
         system("clear");
         apple newApple = createApple('*');
 
-        movePlayer(&pl1, &mainBoard);
+        movePlayer(&pl1, &mainBoard, &newApple);
         drawPlayer(&pl1, &mainBoard);
         if(hasApple(&newApple, &mainBoard)){
             showApple(&newApple, &mainBoard);
