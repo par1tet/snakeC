@@ -32,15 +32,14 @@ void movePlayer(player *pl, board *mainBoard)
         changePosition(pl, (*pl).x + 1, (*pl).y, mainBoard);
         break;
     case 'l':
-
+        changePosition(pl, (*pl).x - 1, (*pl).y, mainBoard);
         break;
-
     case 'u':
-
+        changePosition(pl, (*pl).x, (*pl).y - 1, mainBoard);
         break;
 
     case 'd':
-
+        changePosition(pl, (*pl).x, (*pl).y + 1, mainBoard);
         break;
 
     default:

@@ -36,28 +36,27 @@ int main()
     do
     {
         system("clear");
+        movePlayer(&pl1, &mainBoard);
         drawPlayer(&pl1, &mainBoard);
         showBoard(&mainBoard);
 
-        // movePlayer(&pl1, &mainBoard);
-
-        usleep(500000);
+        usleep(200000);
         switch (pressedKey)
         {
         case 'q':
             esc = 0;
             break;
         case 'w':
-            changePosition(&pl1, pl1.x, pl1.y - 1, &mainBoard);
+            pl1.direction = 'u';
             break;
         case 'a':
-            changePosition(&pl1, pl1.x - 1, pl1.y, &mainBoard);
+            pl1.direction = 'l';
             break;
         case 's':
-            changePosition(&pl1, pl1.x, pl1.y + 1, &mainBoard);
+            pl1.direction = 'd';
             break;
         case 'd':
-            changePosition(&pl1, pl1.x + 1, pl1.y, &mainBoard);
+            pl1.direction = 'r';
             break;
 
         default:
