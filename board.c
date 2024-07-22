@@ -1,17 +1,18 @@
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "colors.h"
 #include "structures.c"
 
 board initBoard(int heigth, int width, char block, char air)
 {
     board newBoard;
-    
+
     newBoard.heigth = heigth;
     newBoard.width = width;
     newBoard.block = block;
     newBoard.air = air;
-    
+
     for (int i = 0; i < heigth; i++)
     {
         for (int j = 0; j < width; j++)

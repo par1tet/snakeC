@@ -24,7 +24,7 @@ int main()
     char esc = 1;
     board mainBoard = initBoard(HEIGTH, WIDTH, '#', ' ');
     part head = {(int)round(WIDTH / 2), (int)round(HEIGTH / 2), 'r'};
-    struct part_stc *parts = malloc(sizeof(head));
+    part *parts = malloc(sizeof(part));
     *parts = head;
 
     player pl1 = {1, parts, '@', '+'};
@@ -49,7 +49,11 @@ int main()
         }
         showBoard(&pl1, &mainBoard, &newApple);
 
-        usleep(200000);
+        for (int i = 0; i != pl1.length; i++)
+        {
+            printf("%d,%d,%c", parts[i].x, parts[i].y, parts[i].direction);
+        }
+        usleep(150000);
         switch (pressedKey)
         {
         case 'q':
@@ -75,6 +79,7 @@ int main()
     } while (esc);
 
     free(pl1.parts);
+    free(parts);
 
     return 0;
 }

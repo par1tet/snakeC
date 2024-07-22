@@ -3,7 +3,8 @@
 
 typedef struct part_stc
 {
-    int x, y;
+    int x;
+    int y;
     char direction;
 } part;
 
